@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slideshow-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            position: absolute;
+            animation: fade 9s linear infinite;
+        }
+
+        .slideshow-img:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .slideshow-img:nth-child(2) {
+            animation-delay: 3s;
+        }
+
+        .slideshow-img:nth-child(3) {
+            animation-delay: 6s;
+        }
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+        }
+        .text-box h1{
+             font-size: 62px;
+        }
+        .text-box p{
+            margin: 10px 0 40px;
+            font-size: 14px;
+            color: #fff;
+        }
+        .hero-btn{
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 12px 34px;
+            font-size: 13px;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+        }
+        .hero-btn:hover{
+            border: 1px solid #0a77f5;
+            background: #0a77f5;
+             transition: 1s;
+}
+    </style>
+</head>
+<body>
+    <a href="history.htm" target="_self" class="hero-btn">GO BACK</a>
+    <div class="slideshow-container">
+        <img class="slideshow-img" src="images/places.jpg">
+        <img class="slideshow-img" src="images/places 2.jpg">
+        <img class="slideshow-img" src="images/places 3.jpg">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script>
+        let score = 0;
+        let questionIndex = 0;
+
+        const questions = [
+            "Where is the Carmen Copper Heritage Center located?",
+            "What natural attraction can be found in Barangay Tongkay, Toledo City?",
+            "What is the Bato Marine Sanctuary known for?",
+            "What does the Ecap Consumer Park represent?",
+            "The design of the World War II Pillboxes in Barangay Ilihan were built to mimic local ___?",
+            "What is the main activity associated with Cantaco Rockwall in Barangay Cantabaco?",
+            "Where can one go camping and enjoy a scenic view from a hill?",
+            "Which piece of machinery isn't mentioned as part of the Carmen Copper Heritage Center exhibit?",
+            "How were the Japanese casualties during the battle at the Ilihan hill?"
+
+        ];
+
+        function startQuiz() {
+            Swal.fire({
+                title: 'Welcome to the History Quiz!',
+                text: 'Please enter your name:',
+                input: 'text',
+                allowOutsideClick: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Name is required.';
+                    }
+
+                    if (!/^[a-zA-Z\s]*$/.test(value)) {
+                        return "Hey, bro/sis, Why don't you enter a valid name?";
+                    }
+                },
+                showCancelButton: false,
+                confirmButtonText: 'Start Quiz'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: `Hello, ${result.value}!`,
+                        text: 'Let\'s begin the quiz. You have 15 seconds for each question.',
+                        icon: 'success'
+                    }).then(() => {
+                        askQuestion();
+                    });
+                }
+            });
+        }
+        
+
+        function askQuestion() {
+            if (questionIndex < questions.length) {
+                const question = questions[questionIndex];
+                const correctAnswer = answers[questionIndex];
+
+                Swal.fire({
+                    title: `Question ${questionIndex + 1}`,
+                    text: question,
+                    input: 'text',
+                    inputValidator: (value) => {
+
+                        if (!value) {
+                            return 'Answer is required.';
+                        }
+                    },
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Submit',
+                    timer: 15000,
+                    timerProgressBar: true,
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (result.value === correctAnswer) {
+                            score += 10;
+                        }
+                    }
+                    questionIndex++;
+                    askQuestion();
+                });
+            } else {
+            if (score >= 50) {
+                let stars = '⭐⭐⭐';
+                if (score >= 50 && score <= 69) {
+                    stars = '⭐⭐⭐⭐';
+                } else if (score > 70) {
+                    stars = '⭐⭐⭐⭐⭐';
+                }
+
+                Swal.fire({
+                    title: 'Quiz Completed!',
+                    html: `Your Score: ${score}/80<br>Stars: ${stars}`,
+                    icon: 'info',
+                    confirmButtonText: 'Okay',
+                    allowOutsideClick: false
+                });
+                
+            } else if (score >= 0 && score <= 40) {
+                Swal.fire({
+                    title: '',
+                    imageUrl: 'images/meme.jpg',
+                    imageWidth: 500,
+                    imageHeight: 250,
+                    imageAlt: 'Custom image',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    html: `<div class='alert alert-light' role='alert'>Your Score: ${score}/80<br><br>NAUNSA MAN KA DO <br><small><b>TAGA TOLEDO KA OR DILI?</b></small></div>`
+                });
+                }
+            }
+        }
+
+        const answers = [
+            "Barangay Don Andres Soriano (DAS), Toledo City",
+            "Manguyakuya Falls",
+            "Its Scubasurero initiative",
+            "The entire province of Cebu",
+            "Bahay Kubo",
+            "Rock climbing",
+            "Scuba diving garbage collection initiative",
+            "Mt. Tagaytay Camping Grounds",
+            "Cross-cut Saw",
+            "Almost 400"
+        ];
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>
