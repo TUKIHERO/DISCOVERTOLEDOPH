@@ -76,29 +76,52 @@
 <body>
     <a href="festival.htm" target="_self" class="hero-btn">GO BACK</a>
     <div class="slideshow-container">
-        <img class="slideshow-img" src="images/festival.jpg">
-        <img class="slideshow-img" src="images/festival 2.jpg">
-        <img class="slideshow-img" src="images/festival 3.jpg">
+        <img class="slideshow-img" src="images/places.jpg">
+        <img class="slideshow-img" src="images/places 2.jpg">
+        <img class="slideshow-img" src="images/places 3.jpg">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <script>
-        let score = 0;
         let questionIndex = 0;
-
-        const questions = [
-            "Where is the Carmen Copper Heritage Center located?",
-            "What natural attraction can be found in Barangay Tongkay, Toledo City?",
-            "What is the Bato Marine Sanctuary known for?",
-            "What does the Ecap Consumer Park represent?",
-            "The design of the World War II Pillboxes in Barangay Ilihan were built to mimic local ___?",
-            "What is the main activity associated with Cantaco Rockwall in Barangay Cantabaco?",
-            "Where can one go camping and enjoy a scenic view from a hill?",
-            "Which piece of machinery isn't mentioned as part of the Carmen Copper Heritage Center exhibit?",
-            "How were the Japanese casualties during the battle at the Ilihan hill?"
+        let score = 0;
+        let questions = [
+            "What is the significance of the term Hinulawan in the context of the festival?",
+            "How did Toledo City's name change over time?",
+            "Who played a significant role in establishing Toledo City?",
+            "What inspired the name Toledo for the city?",
+            "Which patron saint is honored during the Hinulawan Festival?",
+            "When is the Hinulawan Festival celebrated each year?",
+            "What are the main components of the Hinulawan Festival?",
+            "Why is Saint John of Sahagun celebrated during the festival?",
+            "From which language does the term Hinulawan derive, and what do its components mean?",
+            "How does the Hinulawan Festival contribute to Toledo City's cultural identity?"
 
         ];
 
+        let answers = [
+            "Hinulawan originates from 'hin' (for 'hinaguan') meaning fruits of labor, and 'ulawan' (for 'bulawan') meaning gold",
+            "It transitioned from Old Hinulawan (now Daang Lungsod) to New Hinulawan, then simply to Toledo",
+            "Fernando Poloyapoy and other influential leaders",
+            "The name was bestowed by the Spaniards, echoing a town in Spain",
+            "Saint John of Sahagun",
+            "12th of June",
+            "Traditional dances, communal feasting, and various exciting elements",
+            "To express gratitude to the city's patron saint",
+            "It comes from the local language, with hin meaning hinaguan (fruits of labor) and ulawan meaning bulawan (gold)",
+            "It serves as the grandest celebration, showcasing rich traditions and communal gratitude"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function startQuiz() {
+            shuffleArray(questions);
+            shuffleArray(answers);
+
             Swal.fire({
                 title: 'Welcome to the Festival Quiz!',
                 text: 'Please enter your name:',
@@ -128,7 +151,6 @@
             });
         }
         
-
         function askQuestion() {
             if (questionIndex < questions.length) {
                 const question = questions[questionIndex];
@@ -152,7 +174,7 @@
                     allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        if (result.value === correctAnswer) {
+                        if (result.value.toLowerCase() === correctAnswer.toLowerCase()) {
                             score += 10;
                         }
                     }
@@ -195,20 +217,8 @@
             }
         }
 
-        const answers = [
-            "Barangay Don Andres Soriano (DAS), Toledo City",
-            "Manguyakuya Falls",
-            "Its Scubasurero initiative",
-            "The entire province of Cebu",
-            "Bahay Kubo",
-            "Rock climbing",
-            "Scuba diving garbage collection initiative",
-            "Mt. Tagaytay Camping Grounds",
-            "Cross-cut Saw",
-            "Almost 400"
-        ];
-
         window.onload = startQuiz;
     </script>
 </body>
 </html>
+
