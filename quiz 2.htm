@@ -74,7 +74,7 @@
     </style>
 </head>
 <body>
-    <a href="places.htm" target="_self" class="hero-btn">GO BACK</a>
+    <a href="history.htm" target="_self" class="hero-btn">GO BACK</a>
     <div class="slideshow-container">
         <img class="slideshow-img" src="images/places.jpg">
         <img class="slideshow-img" src="images/places 2.jpg">
@@ -82,23 +82,45 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <script>
-        let score = 0;
         let questionIndex = 0;
-
-        const questions = [
-            "Where is the Carmen Copper Heritage Center located?",
-            "What natural attraction can be found in Barangay Tongkay, Toledo City?",
-            "What is the Bato Marine Sanctuary known for?",
-            "What does the Ecap Consumer Park represent?",
-            "The design of the World War II Pillboxes in Barangay Ilihan were built to mimic local ___?",
-            "What is the main activity associated with Cantaco Rockwall in Barangay Cantabaco?",
-            "Where can one go camping and enjoy a scenic view from a hill?",
-            "Which piece of machinery isn't mentioned as part of the Carmen Copper Heritage Center exhibit?",
-            "How were the Japanese casualties during the battle at the Ilihan hill?"
-
+        let score = 0;
+        let questions = [
+            "What significant event led to the construction of foxholes in Barangay Ilihan?",
+            "Who was the USAFFE Battalion Commander who defended Ilihan during the war?",
+            "Why did the Japanese Imperial Army scouts find it challenging to land in Toledo?",
+            "What historical figure oversaw the Central Visayas division during the war?",
+            "What resistance strategy did the USAFFE soldiers adopt after sunset?",
+            "What social media sensation opened to the public last year in Toledo?",
+            "Where can visitors enjoy a tranquil day of picnicking and fishing in Toledo?",
+            "What natural wonder in Toledo offers a view of the Copper City?",
+            "When was the San Juan de Sahagun Parish founded?",
+            "What man-made marvel in Toledo alleviates traffic issues?"
         ];
 
+        let answers = [
+            "The Japanese invasion during World War II",
+            "Captain Oligario Baura",
+            "Due to barbed wire entanglements along the shores",
+            "Col. William F. Sharp",
+            "Retreat to nearby mountains to organize guerrilla movements",
+            "The maze garden at the labyrinth",
+            "Malubog Lake",
+            "Lapos-Lapos Cave",
+            "In 1863",
+            "The Ilihan Bridge"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function startQuiz() {
+            shuffleArray(questions);
+            shuffleArray(answers);
+
             Swal.fire({
                 title: 'Welcome to the Places Quiz!',
                 text: 'Please enter your name:',
@@ -128,7 +150,6 @@
             });
         }
         
-
         function askQuestion() {
             if (questionIndex < questions.length) {
                 const question = questions[questionIndex];
@@ -152,7 +173,7 @@
                     allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        if (result.value === correctAnswer) {
+                        if (result.value.toLowerCase() === correctAnswer.toLowerCase()) {
                             score += 10;
                         }
                     }
@@ -195,20 +216,8 @@
             }
         }
 
-        const answers = [
-            "Barangay Don Andres Soriano (DAS), Toledo City",
-            "Manguyakuya Falls",
-            "Its Scubasurero initiative",
-            "The entire province of Cebu",
-            "Bahay Kubo",
-            "Rock climbing",
-            "Scuba diving garbage collection initiative",
-            "Mt. Tagaytay Camping Grounds",
-            "Cross-cut Saw",
-            "Almost 400"
-        ];
-
         window.onload = startQuiz;
     </script>
 </body>
 </html>
+
