@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mayor Quiz</title>
+    <title>Mayors Quiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
@@ -74,31 +74,53 @@
     </style>
 </head>
 <body>
-    <a href="mayors.htm" target="_self" class="hero-btn">GO BACK</a>
+    <a href="history.htm" target="_self" class="hero-btn">GO BACK</a>
     <div class="slideshow-container">
-        <img class="slideshow-img" src="images/mayor.jpg">
-        <img class="slideshow-img" src="images/mayor 2.jpg">
-        <img class="slideshow-img" src="images/mayor 3.jpg">
+        <img class="slideshow-img" src="images/places.jpg">
+        <img class="slideshow-img" src="images/places 2.jpg">
+        <img class="slideshow-img" src="images/places 3.jpg">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <script>
-        let score = 0;
         let questionIndex = 0;
-
-        const questions = [
-            "Where is the Carmen Copper Heritage Center located?",
-            "What natural attraction can be found in Barangay Tongkay, Toledo City?",
-            "What is the Bato Marine Sanctuary known for?",
-            "What does the Ecap Consumer Park represent?",
-            "The design of the World War II Pillboxes in Barangay Ilihan were built to mimic local ___?",
-            "What is the main activity associated with Cantaco Rockwall in Barangay Cantabaco?",
-            "Where can one go camping and enjoy a scenic view from a hill?",
-            "Which piece of machinery isn't mentioned as part of the Carmen Copper Heritage Center exhibit?",
-            "How were the Japanese casualties during the battle at the Ilihan hill?"
-
+        let score = 0;
+        let questions = [
+            "Who was the first appointed municipal president of Toledo City?",
+            "Who was the 5th appointed municipal president during the Japanese occupation?",
+            "Who served as the appointed mayor of Toledo City from 1945 to 1946?",
+            "Who was the 8th appointed mayor of Toledo City, serving from 1946 to 1947?",
+            "Who was the mayor of Toledo City from 1943 to 1951?",
+            "Who served as the mayor of Toledo City from 1952 to 1954?",
+            "Who was the mayor of Toledo City from 1954 to 1955?",
+            "Who was the 12th appointed mayor of Toledo City, serving from 1958 to 1978?",
+            "Who was appointed as mayor of Toledo City in 1980 and served until 1986?",
+            "Who is the current mayor of Toledo City, having been elected in 1992?"
         ];
 
+        let answers = [
+            "Lorenzo Libumfacil",
+            "Severino Libumfacil",
+            "Purisimo R. Libre",
+            "Teodoro Trocio",
+            "Juan Climaco",
+            "Vicente Birao Sr.",
+            "Ignacio G. Alcomendras",
+            "Marcelo A. Barba",
+            "Emmanuel Lebumfacil",
+            "Aurelio B. Espinosa"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function startQuiz() {
+            shuffleArray(questions);
+            shuffleArray(answers);
+
             Swal.fire({
                 title: 'Welcome to the Mayors Quiz!',
                 text: 'Please enter your name:',
@@ -128,7 +150,6 @@
             });
         }
         
-
         function askQuestion() {
             if (questionIndex < questions.length) {
                 const question = questions[questionIndex];
@@ -152,7 +173,7 @@
                     allowOutsideClick: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        if (result.value === correctAnswer) {
+                        if (result.value.toLowerCase() === correctAnswer.toLowerCase()) {
                             score += 10;
                         }
                     }
@@ -195,20 +216,8 @@
             }
         }
 
-        const answers = [
-            "Barangay Don Andres Soriano (DAS), Toledo City",
-            "Manguyakuya Falls",
-            "Its Scubasurero initiative",
-            "The entire province of Cebu",
-            "Bahay Kubo",
-            "Rock climbing",
-            "Scuba diving garbage collection initiative",
-            "Mt. Tagaytay Camping Grounds",
-            "Cross-cut Saw",
-            "Almost 400"
-        ];
-
         window.onload = startQuiz;
     </script>
 </body>
 </html>
+
